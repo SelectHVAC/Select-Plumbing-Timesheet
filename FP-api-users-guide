@@ -1,0 +1,147 @@
+> ## Documentation Index
+> Fetch the complete documentation index at: https://help.fieldpulse.com/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Retrieve users list
+
+> List company users
+
+
+
+## OpenAPI
+
+````yaml get /users
+openapi: 3.0.0
+info:
+  title: FieldPulse API
+  description: >-
+    REST API for the FieldPulse field service management platform.
+
+
+    **Authentication:** All requests require an `x-api-key` header. Contact
+    support@fieldpulse.com to obtain your API key.
+
+
+    **Important:** The API Playground below makes live requests against your
+    production data. Use caution when testing write operations (POST, PUT,
+    DELETE).
+  version: 1.0.0
+servers:
+  - url: https://ywe3crmpll.execute-api.us-east-2.amazonaws.com/stage
+    description: Production
+security:
+  - apiKeyAuth: []
+tags:
+  - name: Assets
+    description: Endpoints related to assets
+  - name: Assets Category
+    description: Endpoints related to assets category
+  - name: Comments
+    description: Endpoints related to comments
+  - name: Company Profile
+    description: Endpoints related to contracts
+  - name: Contracts
+    description: Endpoints related to contracts
+  - name: Customers
+    description: Endpoints related to customers
+  - name: Custom Fields
+    description: Endpoints related to custom fields
+  - name: Estimates
+    description: Endpoints related to estimates
+  - name: Invoices
+  - name: Items
+  - name: Jobs
+  - name: Lead Source
+  - name: Locations
+  - name: Material Lists
+  - name: Payments
+  - name: Pipeline Status
+  - name: Projects
+  - name: Purchase Orders
+  - name: Subtasks
+  - name: Tags
+  - name: Teams
+  - name: Timesheets
+  - name: Users
+  - name: Vendors
+  - name: Version
+paths:
+  /users:
+    get:
+      tags:
+        - Users
+      summary: Retrieve users list
+      description: List company users
+      operationId: getUsers
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: string
+          description: Defaults to 20 items per page, maximum 100 items allowed.
+          example: <string>
+        - name: calculate_count
+          in: query
+          schema:
+            type: string
+          description: >-
+            true or false. If true, in response will be included also total
+            count
+          example: <boolean>
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Array of attribute, operator, and value parts.
+          example: <array>
+        - name: sort
+          in: query
+          schema:
+            type: string
+          description: Array of attribute and order values.
+          example: <array>
+        - name: rel
+          in: query
+          schema:
+            type: string
+          description: array consisting of indices with the desired relation to include
+          example: <array>
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              example:
+                message: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              example:
+                message: Request URL not found
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              example:
+                message: Internal Server Error
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+
+````
+
+## Related topics
+
+- [FieldPulse API Overview](/integrations/developer-api/fieldpulse-api-overview.md)
+- [Material Lists Overview](/inventory-materials/material-lists/material-lists.md)
+- [User Roles and Permissions Details](/settings/users-teams/user-roles.md)
+- [How to Add New Users](/settings/users-teams/adding-users.md)
+- [How to Use Material Lists on the Mobile App](/inventory-materials/material-lists/mobile-app.md)
