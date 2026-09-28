@@ -35,8 +35,7 @@ interface UserAggregated {
   daily: Record<string, number>;
 }
 
-const API_URL = import.meta.env.DEV ? '/api' : 'https://ywe3crmpll.execute-api.us-east-2.amazonaws.com/stage';
-const API_KEY = import.meta.env.VITE_FP_API_KEY;
+const API_URL = '/api';
 
 function formatHours(seconds: number): string {
   if (!seconds) return '0:00';
@@ -172,9 +171,7 @@ function App() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const usersRes = await fetch(`${API_URL}/users?limit=1000`, {
-          headers: { 'x-api-key': API_KEY }
-        });
+        const usersRes = await fetch(`${API_URL}/users?limit=1000`);
         if (!usersRes.ok) throw new Error('Failed to fetch users');
         const usersData = await usersRes.json();
         const usersList = Array.isArray(usersData) ? usersData : (usersData.users || usersData.data || usersData.response || []);
@@ -241,7 +238,7 @@ function App() {
             + `&filter[1][attribute]=clock_in_time&filter[1][operator]=%3C%3D&filter[1][value]=${encodeURIComponent(filterEnd)}`;
           
           try {
-            const res = await fetch(url, { headers: { 'x-api-key': API_KEY } });
+            const res = await fetch(url);
             if (!res.ok) return [];
             const tsData = await res.json();
             if (u.first_name?.toLowerCase() === 'michael' && u.last_name?.toLowerCase() === 'bennett') {
@@ -394,6 +391,7 @@ function App() {
     }));
   };
 
+  /*
   const handleRestoreDefault = (userId: number) => {
     setData(prev => prev.map(row => {
       if (row.user.id !== userId) return row;
@@ -410,6 +408,7 @@ function App() {
       };
     }));
   };
+  */
 
   return (
     <div className="container" style={{ maxWidth: '1200px' }}>
